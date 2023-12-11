@@ -281,7 +281,7 @@ const resultDiv = document.getElementById('result');
 function loadQuiz() {
     const quizQuestions = quizData.map((q, index) => {
         return `
-            <div class="question">${q.question}</div>
+            <div class="question" id="question-${index}">${q.question}</div>
             <ul class="options">
                 <li><input type="radio" name="question${index}" value="a"> ${q.a}</li>
                 <li><input type="radio" name="question${index}" value="b"> ${q.b}</li>
@@ -302,11 +302,14 @@ function submitQuiz() {
     let resultsHTML = '';
 
     answers.forEach((answer, index) => {
+        const questionElement = document.getElementById(`question-${index}`);
         if (answer === quizData[index].correct) {
             score++;
-            resultsHTML += `<p><b>Pregunta ${index + 1}: correcta.</b> ${quizData[index].explanation}</p>`;
+            resultsHTML += `<p><a href="#question-${index}"><b>Pregunta ${index + 1}: correcta.</b></a> ${quizData[index].explanation}</p>`;
+            questionElement.classList.remove('incorrect');
         } else {
-            resultsHTML += `<p><b>Pregunta ${index + 1}: INCORRECTA.</b> La respuesta correcta era '${quizData[index].correct}'. ${quizData[index].explanation}</p>`;
+            resultsHTML += `<p><a href="#question-${index}" class="incorrect"><b>Pregunta ${index + 1}: INCORRECTA.</b></a> La respuesta correcta era '${quizData[index].correct}'. ${quizData[index].explanation}</p>`;
+            questionElement.classList.add('incorrect');
         }
     });
 
@@ -315,8 +318,6 @@ function submitQuiz() {
 
     resultDiv.innerHTML = resultsHTML;
 }
-
-// Asegúrate de eliminar la función submitQuiz() duplicada
 
 window.submitQuiz = submitQuiz; // Hacer la función accesible globalmente
 loadQuiz();
