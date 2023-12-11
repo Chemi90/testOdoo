@@ -212,9 +212,9 @@ function submitQuiz() {
     answers.forEach((answer, index) => {
         if (answer === quizData[index].correct) {
             score++;
-            resultsHTML += `<p><b>Pregunta ${index + 1}: Correcta.</b> ${quizData[index].explanation}</p>`;
+            resultsHTML += `<p><b>Pregunta ${index + 1}: correcta.</b> ${quizData[index].explanation}</p>`;
         } else {
-            resultsHTML += `<p><b>Pregunta ${index + 1}: Incorrecta.</b> La respuesta correcta era '${quizData[index].correct}'. ${quizData[index].explanation}</p>`;
+            resultsHTML += `<p><b>Pregunta ${index + 1}: INCORRECTA.</b> La respuesta correcta era '${quizData[index].correct}'. ${quizData[index].explanation}</p>`;
         }
     });
 
